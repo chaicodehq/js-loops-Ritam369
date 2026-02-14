@@ -30,5 +30,31 @@
  *   // => { items: [], totalBill: 0 }
  */
 export function sabziMandiBill(shoppingList, priceList) {
-  // Your code here
+  if(shoppingList.length === 0 || !Array.isArray(shoppingList)) {
+    return { items: [], totalBill: 0 };
+  }
+  else{
+    if(Object.keys(priceList).length === 0 || typeof priceList !== 'object') {
+      return { items: [], totalBill: 0 };
+    }
+    else{
+      let items = [];
+      let totalBill = 0;
+      for(let item of shoppingList) {
+        if(priceList[item.name] === undefined) {
+          continue;
+        }
+        else if(priceList[item.name] > 80) {
+          console.log("bahut mehenga hai!");
+          continue;
+        }
+        else {
+          let cost = priceList[item.name] * item.qty;
+          items.push({ name: item.name, qty: item.qty, cost: cost });
+          totalBill += cost;
+        }
+      }
+      return { items, totalBill };
+    }
+  }
 }
